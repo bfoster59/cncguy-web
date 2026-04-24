@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="Notify me — CNCGuy" description="Get notified when new CNC Guy products ship.">
+  <Nav />
+
+  <main>
+    <section class="notify-hero grid-bg">
+      <div class="container notify-inner">
+        <span class="eyebrow-line">Coming Soon</span>
+        <h1 class="notify-title">We'll let you know.</h1>
+        <p class="notify-sub">
+          Drop your email and we'll send a single message when the product you're watching ships. No newsletter, no drip campaign, no resale.
+        </p>
+
+        <form
+          class="notify-form"
+          action="/api/subscribe"
+          method="post"
+          onsubmit="event.preventDefault(); alert('Subscribe endpoint not yet wired — your email was not saved. Check back after launch.');"
+        >
+          <input type="email" name="email" placeholder="you@shop.com" required aria-label="Email address" />
+          <button type="submit" class="cta-primary">Notify me</button>
+        </form>
+
+        <p class="notify-fine">
+          CNCGuy Studio — shop-floor suite, coming 2026.<br/>
+          DNCGuy — file transfer to machines, in development.
+        </p>
+
+        <div class="notify-back">
+          <a href="/" class="btn-secondary">← Back to all products</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .notify-hero {
+    padding: 96px 0 120px;
+    border-bottom: 1px solid var(--line-1);
+    min-height: calc(100vh - 200px);
+  }
+  .notify-inner {
+    max-width: 640px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .notify-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(40px, 5vw, 56px);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 22px 0 20px;
+  }
+  .notify-sub {
+    font-size: 18px;
+    color: var(--fg-2);
+    line-height: 1.55;
+    margin: 0 auto 36px;
+    max-width: 540px;
+  }
+  .notify-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    max-width: 480px;
+    margin: 0 auto 28px;
+  }
+  .notify-form input {
+    flex: 1;
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    color: var(--fg-1);
+    font-family: var(--font-body);
+    font-size: 15px;
+  }
+  .notify-form input:focus {
+    outline: 1px solid var(--line-3);
+  }
+  .notify-fine {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    line-height: 2;
+    margin: 32px auto 0;
+  }
+  .notify-back {
+    margin-top: 40px;
+  }
+  @media (max-width: 900px) {
+    .notify-hero { padding: 56px 0 72px; }
+    .notify-title { font-size: 40px; }
+    .notify-sub { font-size: 16px; }
+    .notify-form { flex-direction: column; }
+  }
+</style>

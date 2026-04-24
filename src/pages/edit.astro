@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import EditHero from '../components/EditHero.astro';
+import FeatureTiles from '../components/FeatureTiles.astro';
+import Comparison from '../components/Comparison.astro';
+import BetaHonesty from '../components/BetaHonesty.astro';
+import DownloadBlock from '../components/DownloadBlock.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout
+  title="CNCGuy Edit — G-code editor with built-in backplot"
+  description="A fast, modern G-code editor with built-in backplot for Fanuc, Mazak, Haas. Free beta through October 2026."
+>
+  <Nav product="Edit" />
+  <main>
+    <EditHero />
+    <FeatureTiles />
+    <Comparison />
+    <BetaHonesty />
+    <DownloadBlock />
+  </main>
+  <Footer />
+</Layout>

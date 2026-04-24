@@ -1,0 +1,380 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const products = [
+  {
+    chip: 'Beta · Shipping',
+    title: 'CNCGuy Edit',
+    body: 'G-code editor with live backplot. Fanuc, Mazak, Haas.',
+    cta: 'Learn more →',
+    href: '/edit',
+    chipAccent: true,
+  },
+  {
+    chip: 'Coming 2026',
+    title: 'CNCGuy Studio',
+    body: 'Shop-floor suite. Jobs, setups, tooling, revision control.',
+    cta: 'Notify me →',
+    href: '/notify',
+    chipAccent: false,
+  },
+  {
+    chip: 'In Development',
+    title: 'DNCGuy',
+    body: 'File transfer to machines. Drip-feed, serial, ethernet.',
+    cta: 'Notify me →',
+    href: '/notify',
+    chipAccent: false,
+  },
+];
+
+const whatYouGet = [
+  {
+    title: 'Modern tools',
+    body: 'Monaco editor, fast open, canvas backplot. Works with compact Fanuc syntax out of the box.',
+  },
+  {
+    title: "Made by someone who's run them",
+    body: "Not a software company with a machining-adjacent demo. A machinist's tool, period.",
+  },
+  {
+    title: 'Honest pricing',
+    body: 'Free beta now. Fair Pro pricing later. Never the thousand-dollar-a-seat kind of fair.',
+  },
+];
+---
+<Layout title="CNCGuy — Machined From Experience" description="Precision machining tools and apps built by a machinist with 45 years at the bench.">
+  <Nav />
+
+  <main>
+    <section class="home-hero grid-bg">
+      <div class="container home-hero-inner">
+        <span class="eyebrow-line">CNC Guy · Est 1981</span>
+        <h1 class="home-hero-title">Machined From Experience.</h1>
+        <p class="home-hero-sub">Precision tools for CNC machinists. Built on shop floors, tested on shop floors.</p>
+        <div class="home-hero-ctas">
+          <a href="/edit" class="cta-primary">Download CNCGuy Edit [Beta]</a>
+          <a href="#products" class="btn-secondary">See all products →</a>
+        </div>
+
+        <div class="chrome home-hero-shot">
+          <div class="chrome-bar">
+            <div class="chrome-dots"><span></span><span></span><span></span></div>
+            <div class="chrome-title">CNCGuy Edit [Beta] · 660-104485-G71.cnc</div>
+          </div>
+          <img src="/cncguy-edit-screenshot.png" alt="CNCGuy Edit — G-code editor with live backplot" />
+        </div>
+      </div>
+    </section>
+
+    <section class="home-products" id="products">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow-line">01 · The Workbench</span>
+          <h2>Four decades of shop-floor gripes, turned into software.</h2>
+          <p>Use what you need.</p>
+        </div>
+
+        <div class="products-grid">
+          {products.map((p) => (
+            <a href={p.href} class="product-card">
+              <div class={"chip " + (p.chipAccent ? "chip-accent" : "chip-neutral")}>{p.chip}</div>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+              <div class="product-cta">{p.cta}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="home-about" id="about">
+      <div class="container home-about-inner">
+        <div>
+          <span class="eyebrow-line">About</span>
+          <h2 class="home-about-title">Built by a machinist.</h2>
+          <p class="home-about-body">
+            I've been programming and running CNC machines for 45 years.
+            I got tired of paying $700 for software that feels like 2008.
+            CNC Guy is what I wish I'd had on my bench every day of my career.
+          </p>
+        </div>
+        <div class="home-about-photo" aria-hidden="true">
+          <span>FOUNDER PHOTO</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-features">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow-line">02 · What You Get</span>
+          <h2>Three things other tools miss.</h2>
+        </div>
+
+        <div class="wyg-grid">
+          {whatYouGet.map((w, i) => (
+            <div class="wyg-tile">
+              <div class="feat-num">0{i + 1}</div>
+              <h3>{w.title}</h3>
+              <p>{w.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="home-notify">
+      <div class="container home-notify-inner">
+        <h3 class="home-notify-title">Get notified when Pro ships.</h3>
+        <form class="home-notify-form" action="/api/subscribe" method="post" onsubmit="event.preventDefault(); alert('Subscribe endpoint not yet wired — your email was not saved. Check back after launch.');">
+          <input type="email" name="email" placeholder="you@shop.com" required />
+          <button type="submit" class="btn-secondary">Notify me</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    background: var(--bg-1);
+  }
+  .home-hero {
+    padding: 96px 0 88px;
+    border-bottom: 1px solid var(--line-1);
+  }
+  .home-hero-inner {
+    text-align: center;
+  }
+  .home-hero-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(48px, 6vw, 62px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 22px 0 18px;
+  }
+  .home-hero-sub {
+    font-size: 19px;
+    color: var(--fg-2);
+    max-width: 640px;
+    margin: 0 auto 36px;
+    line-height: 1.5;
+  }
+  .home-hero-ctas {
+    display: inline-flex;
+    gap: 14px;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .home-hero-shot {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .home-products {
+    padding: clamp(72px, 10vw, 120px) 0;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .product-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-md);
+    padding: 28px 26px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--dur-med) var(--ease-std), transform var(--dur-med) var(--ease-std);
+  }
+  .product-card:hover {
+    border-color: var(--line-3);
+    transform: translateY(-2px);
+  }
+  .product-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 0;
+  }
+  .product-card p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--fg-3);
+    margin: 0;
+    flex: 1;
+  }
+  .product-cta {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--fg-2);
+    margin-top: 8px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 9px 3px;
+    border-radius: var(--radius-xs);
+    align-self: flex-start;
+  }
+  .chip-accent {
+    color: var(--cnc-accent);
+    border: 1px solid var(--cnc-accent);
+    background: rgba(217, 96, 31, 0.06);
+  }
+  .chip-neutral {
+    color: var(--fg-3);
+    border: 1px solid var(--line-2);
+    background: var(--bg-3);
+  }
+  .home-about {
+    padding: clamp(72px, 10vw, 120px) 0;
+    border-top: 1px solid var(--line-1);
+  }
+  .home-about-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: center;
+  }
+  .home-about-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(30px, 3.4vw, 40px);
+    line-height: 1.08;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 12px 0 12px;
+  }
+  .home-about-body {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--fg-2);
+    margin: 0;
+    max-width: 620px;
+  }
+  .home-about-photo {
+    width: 200px;
+    height: 200px;
+    border: 1px dashed var(--line-2);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fg-4);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .home-features {
+    padding: clamp(72px, 10vw, 120px) 0;
+    border-top: 1px solid var(--line-1);
+  }
+  .wyg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .wyg-tile {
+    padding: 4px 0;
+  }
+  .wyg-tile h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 8px 0 10px;
+  }
+  .wyg-tile p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--fg-3);
+    margin: 0;
+  }
+  .wyg-tile .feat-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    color: var(--fg-4);
+    text-transform: uppercase;
+  }
+  .home-notify {
+    padding: 56px 0 72px;
+    border-top: 1px solid var(--line-1);
+    background: var(--bg-0);
+  }
+  .home-notify-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .home-notify-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 0;
+  }
+  .home-notify-form {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .home-notify-form input {
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    color: var(--fg-1);
+    font-family: var(--font-body);
+    font-size: 14px;
+    min-width: 260px;
+  }
+  .home-notify-form input:focus {
+    outline: 1px solid var(--line-3);
+  }
+  @media (max-width: 900px) {
+    .home-hero { padding: 48px 0 56px; }
+    .home-hero-title { font-size: 40px; margin: 16px 0 14px; }
+    .home-hero-sub { font-size: 16px; margin: 0 auto 28px; }
+    .home-hero-ctas { margin-bottom: 36px; }
+    .products-grid { grid-template-columns: 1fr; gap: 14px; }
+    .home-about-inner {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .home-about-photo { width: 100%; height: 160px; }
+    .wyg-grid { grid-template-columns: 1fr; gap: 16px; }
+    .home-notify-inner { flex-direction: column; align-items: stretch; }
+    .home-notify-form { flex-direction: column; }
+    .home-notify-form input { min-width: 0; }
+  }
+</style>

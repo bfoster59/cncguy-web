@@ -1,0 +1,112 @@
+---
+---
+<section class="download" id="download">
+  <div class="container download-grid">
+    <div class="download-left">
+      <span class="eyebrow-line">04 · Download</span>
+      <h2 class="download-title">
+        Windows only.<br/>No account. No email.
+      </h2>
+      <p class="download-sub">
+        Installer is about 50 MB. Opens in under a second on a modern laptop.
+      </p>
+      <a href="#" class="cta-primary large">Download for Windows (Free Beta)</a>
+      <div class="download-meta">v0.5.0 · Windows 10/11 · ~50 MB</div>
+    </div>
+
+    <aside class="callout">
+      <div class="callout-badge-wrap">
+        <div class="callout-badge">!</div>
+      </div>
+      <div>
+        <div class="callout-label">Install Note · SmartScreen</div>
+        <div class="callout-lead">Unsigned beta installer.</div>
+        <div class="callout-body">
+          Windows SmartScreen may show <code>"not commonly downloaded"</code> — click
+          <code>More info</code> → <code>Run anyway</code>. Signed installers start with v1.1.
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .download {
+    padding: clamp(72px, 10vw, 120px) 0;
+    border-top: 1px solid var(--line-1);
+    background: var(--bg-0);
+  }
+  .download-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .download-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(32px, 3.6vw, 42px);
+    line-height: 1.06;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 18px 0 16px;
+  }
+  .download-sub {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--fg-3);
+    margin: 0 0 28px;
+    max-width: 440px;
+  }
+  .download-meta {
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+  }
+  .callout-badge-wrap {
+    min-width: 44px;
+  }
+  .callout-badge {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line-3);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--fg-2);
+  }
+  .callout-lead {
+    color: var(--fg-1);
+    font-size: 14.5px;
+    line-height: 1.55;
+    margin-bottom: 8px;
+  }
+  .callout-body {
+    color: var(--fg-3);
+    line-height: 1.6;
+  }
+  @media (max-width: 900px) {
+    .download {
+      padding: 56px 0 64px;
+    }
+    .download-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .download-title {
+      font-size: 30px;
+      margin: 14px 0 14px;
+    }
+    .download-sub {
+      font-size: 15px;
+    }
+  }
+</style>

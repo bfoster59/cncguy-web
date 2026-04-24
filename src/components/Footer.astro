@@ -1,0 +1,77 @@
+---
+const links = [
+  { label: 'Edit', href: '/edit' },
+  { label: 'Studio', href: '/notify' },
+  { label: 'DNCGuy', href: '/notify' },
+  { label: 'Contact', href: 'mailto:hello@cncguy.com' },
+  { label: 'GitHub', href: 'https://github.com/bfoster59' },
+  { label: 'Privacy', href: '/privacy' },
+];
+---
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="wm" style="font-size: 15px;">CNCGuy</span>
+      <span class="footer-copy">© 2026 CNC Guy · Machined From Experience</span>
+    </div>
+
+    <nav class="footer-links">
+      {links.map((link) => (
+        <a href={link.href} class="footer-link">{link.label}</a>
+      ))}
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #000;
+    border-top: 1px solid var(--line-1);
+    padding: 28px 0;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--fg-4);
+    text-transform: uppercase;
+  }
+  .footer-links {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .footer-link {
+    color: var(--fg-3);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: var(--font-body);
+    transition: color 120ms var(--ease-std);
+  }
+  .footer-link:hover {
+    color: var(--fg-1);
+  }
+  @media (max-width: 900px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .footer-links {
+      gap: 14px;
+    }
+  }
+</style>

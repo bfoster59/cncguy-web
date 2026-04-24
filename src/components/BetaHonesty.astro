@@ -1,0 +1,126 @@
+---
+const roadmap = [
+  'Post-processor editing',
+  'DNC file transfer',
+  'File compare',
+  '4/5-axis viz',
+];
+---
+<section class="honesty" id="honesty">
+  <div class="container honesty-grid">
+    <div class="honesty-left">
+      <span class="eyebrow-line">03 · What Beta Doesn't Do</span>
+      <h2 class="honesty-title">
+        We're honest<br/>about what beta<br/>doesn't do yet.
+      </h2>
+      <div class="honesty-measure">
+        <span class="measure-rule">00 — 003 · Roadmap</span>
+      </div>
+    </div>
+
+    <div class="honesty-right">
+      <p class="honesty-p">
+        This is a focused v1. We haven't shipped: post-processor editing,
+        DNC file transfer, advanced file comparison, or 4th-and-5th-axis
+        visualization. Those are on the roadmap.
+      </p>
+      <p class="honesty-p">
+        If you need those today, stay on your current tool — we'd rather
+        you wait than be disappointed.
+      </p>
+      <p class="honesty-p honesty-p-strong">
+        If you mostly want a clean editor plus backplot that opens fast
+        and doesn't crash on real shop programs, the beta is for you.
+      </p>
+
+      <div class="roadmap-chips">
+        {roadmap.map((item) => (
+          <div class="roadmap-chip">
+            <span>{item}</span>
+            <span class="roadmap-tag">Roadmap</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .honesty {
+    padding: clamp(72px, 10vw, 120px) 0;
+    border-top: 1px solid var(--line-1);
+  }
+  .honesty-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 72px;
+    align-items: start;
+  }
+  .honesty-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(32px, 3.6vw, 42px);
+    line-height: 1.08;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 18px 0 0;
+  }
+  .honesty-measure {
+    margin-top: 24px;
+  }
+  .honesty-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .honesty-p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--fg-2);
+    margin: 0;
+  }
+  .honesty-p-strong {
+    color: var(--fg-1);
+    font-weight: 500;
+  }
+  .roadmap-chips {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+  }
+  .roadmap-chip {
+    border: 1px solid var(--line-2);
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-2);
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+  }
+  .roadmap-tag {
+    color: var(--fg-3);
+  }
+  @media (max-width: 900px) {
+    .honesty { padding: 56px 0; }
+    .honesty-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .honesty-title {
+      font-size: 28px;
+      margin: 14px 0 0;
+    }
+    .honesty-p { font-size: 15.5px; }
+    .roadmap-chips {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

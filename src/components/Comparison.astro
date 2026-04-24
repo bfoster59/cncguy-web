@@ -1,0 +1,125 @@
+---
+const rows = [
+  { label: 'Price', us: 'Free during beta', other: '$695+ /seat', npp: 'Free' },
+  { label: 'Modern editor', us: 'Yes (Monaco)', other: 'Dated UI', npp: 'Yes' },
+  { label: 'Backplot', us: 'Yes (mill + lathe)', other: 'Yes', npp: 'No' },
+  { label: 'Machine-aware limits', us: 'Yes', other: 'Partial', npp: 'No' },
+  { label: 'Compact Fanuc syntax', us: 'Yes, tested', other: 'Yes', npp: 'No, manual' },
+  { label: 'Made by a machinist', us: 'Yes', other: 'No', npp: 'N/A' },
+];
+---
+<section class="compare" id="compare">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow-line">02 · Honest Comparison</span>
+      <h2>How it stacks up.</h2>
+      <p>Three tools most machinists already know. Here's where Edit lands.</p>
+    </div>
+
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <colgroup>
+          <col style="width: 25%;" />
+          <col style="width: 28%;" />
+          <col style="width: 24%;" />
+          <col style="width: 23%;" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th aria-hidden="true"></th>
+            <th class="col-us-head">
+              <span class="cmp-head-kicker">This</span>
+              CNCGuy Edit Beta
+            </th>
+            <th>
+              <span class="cmp-head-kicker">Vs</span>
+              Other CNC editors
+            </th>
+            <th>
+              <span class="cmp-head-kicker">Vs</span>
+              Notepad++
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr>
+              <td class="cmp-rowlabel">{r.label}</td>
+              <td class="col-us">{r.us}</td>
+              <td>{r.other}</td>
+              <td>{r.npp}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cmp-cards">
+      {rows.map((r) => (
+        <div class="cmp-card">
+          <div class="cmp-card-label">{r.label}</div>
+          <div class="cmp-card-rows">
+            <div><span class="cmp-row-label">CNCGuy Edit Beta</span><span class="cmp-row-us">{r.us}</span></div>
+            <div><span class="cmp-row-label">Other CNC editors</span><span class="cmp-row-val">{r.other}</span></div>
+            <div><span class="cmp-row-label">Notepad++</span><span class="cmp-row-val">{r.npp}</span></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .compare {
+    padding: clamp(72px, 10vw, 120px) 0;
+    border-top: 1px solid var(--line-1);
+  }
+  .cmp-wrap {
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .cmp-cards {
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .cmp-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
+    border-left: 2px solid var(--cnc-accent);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+  }
+  .cmp-card-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    margin-bottom: 10px;
+  }
+  .cmp-card-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+  }
+  .cmp-row-label {
+    display: inline-block;
+    min-width: 140px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    margin-right: 10px;
+  }
+  .cmp-row-us { color: var(--fg-1); }
+  .cmp-row-val { color: var(--fg-2); }
+  @media (max-width: 900px) {
+    .compare { padding: 56px 0; }
+    .cmp-wrap { display: none; }
+    .cmp-cards { display: flex; }
+  }
+</style>

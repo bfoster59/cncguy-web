@@ -1,0 +1,101 @@
+---
+export interface Props {
+  product?: string;
+}
+const { product } = Astro.props;
+---
+<nav class="site-nav">
+  <a href="/" class="nav-brand">
+    <span class="monogram">CG</span>
+    <span class="wm">
+      CNCGuy{product && <>
+        <span class="wm-sep">·</span>
+        <span class="wm-sub">{product}</span>
+      </>}
+    </span>
+  </a>
+
+  <div class="nav-links">
+    <a href="/#products" class="nav-link">Products</a>
+    <a href="/#about" class="nav-link">About</a>
+    <a href="mailto:hello@cncguy.com" class="nav-link">Contact</a>
+  </div>
+
+  <div class="nav-cta">
+    <a href="/edit#download" class="cta-primary">Download CNCGuy Edit →</a>
+  </div>
+
+  <button class="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    border-bottom: 1px solid var(--line-1);
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    gap: 16px;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .nav-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    width: 28px;
+    height: 28px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    align-items: flex-end;
+    cursor: pointer;
+    padding: 0;
+  }
+  .nav-hamburger span {
+    display: block;
+    height: 1.5px;
+    background: var(--fg-2);
+  }
+  .nav-hamburger span:nth-child(1),
+  .nav-hamburger span:nth-child(3) {
+    width: 20px;
+  }
+  .nav-hamburger span:nth-child(2) {
+    width: 14px;
+  }
+  @media (max-width: 900px) {
+    .site-nav {
+      padding: 14px 18px;
+    }
+    .nav-links,
+    .nav-cta {
+      display: none;
+    }
+    .nav-hamburger {
+      display: flex;
+    }
+  }
+</style>
