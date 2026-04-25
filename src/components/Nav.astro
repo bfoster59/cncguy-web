@@ -17,18 +17,52 @@ const { product } = Astro.props;
 
   <div class="nav-links">
     <a href="/#products" class="nav-link">Products</a>
-    <a href="/#about" class="nav-link">About</a>
+    <a href="/workbench" class="nav-link">Workbench</a>
+    <a href="/#story" class="nav-link">The Story</a>
     <a href="mailto:hello@cncguy.com" class="nav-link">Contact</a>
   </div>
 
   <div class="nav-cta">
-    <a href="/edit#download" class="cta-primary">Download CNCGuy Edit →</a>
+    <div class="theme-switcher" id="theme-switcher" role="tablist" aria-label="Theme">
+      <button type="button" data-theme-choice="light" role="tab" aria-label="Light theme">Light</button>
+      <button type="button" data-theme-choice="dark" role="tab" aria-label="Dark theme">Dark</button>
+      <button type="button" data-theme-choice="steel" role="tab" aria-label="Steel theme">Steel</button>
+    </div>
+    <a href="/edit#download" class="cta-primary nav-cta-btn">Download CNCGuy Edit →</a>
   </div>
 
   <button class="nav-hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
+
+<script is:inline>
+  (function () {
+    var KEY = 'cncguy-theme';
+    function active(choice) {
+      document.querySelectorAll('#theme-switcher button').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.themeChoice === choice);
+        b.setAttribute('aria-selected', b.dataset.themeChoice === choice ? 'true' : 'false');
+      });
+    }
+    function get() {
+      try { return localStorage.getItem(KEY) || 'dark'; } catch (e) { return 'dark'; }
+    }
+    function apply(choice) {
+      if (choice === 'dark') document.documentElement.removeAttribute('data-theme');
+      else document.documentElement.setAttribute('data-theme', choice);
+      active(choice);
+    }
+    function set(choice) {
+      try { localStorage.setItem(KEY, choice); } catch (e) {}
+      apply(choice);
+    }
+    document.querySelectorAll('#theme-switcher button').forEach(function (b) {
+      b.addEventListener('click', function () { set(b.dataset.themeChoice); });
+    });
+    active(get());
+  })();
+</script>
 
 <style>
   .site-nav {
@@ -40,7 +74,7 @@ const { product } = Astro.props;
     justify-content: space-between;
     padding: 18px 32px;
     border-bottom: 1px solid var(--line-1);
-    background: rgba(10, 10, 10, 0.85);
+    background: var(--nav-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     gap: 16px;
@@ -61,6 +95,42 @@ const { product } = Astro.props;
     align-items: center;
     gap: 14px;
   }
+
+  /* Theme switcher — TNRCalc-style segmented pill */
+  .theme-switcher {
+    display: inline-flex;
+    background: var(--bg-3);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 2px;
+    gap: 2px;
+  }
+  .theme-switcher button {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--fg-3);
+    border: none;
+    padding: 5px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color var(--dur-fast) var(--ease-std),
+                background var(--dur-fast) var(--ease-std),
+                box-shadow var(--dur-fast) var(--ease-std);
+  }
+  .theme-switcher button:hover { color: var(--fg-1); }
+  .theme-switcher button.active {
+    background: var(--cnc-accent);
+    color: var(--cnc-accent-ink);
+    box-shadow: 0 0 10px var(--cnc-accent-glow);
+  }
+  .theme-switcher button:focus-visible {
+    outline: 2px solid var(--cnc-accent);
+    outline-offset: 2px;
+  }
+
   .nav-hamburger {
     display: none;
     background: none;
@@ -85,6 +155,12 @@ const { product } = Astro.props;
   }
   .nav-hamburger span:nth-child(2) {
     width: 14px;
+  }
+
+  /* Tighter packed layout when nav is dense */
+  @media (max-width: 1180px) {
+    .nav-links { gap: 20px; }
+    .nav-cta-btn { display: none; }
   }
   @media (max-width: 900px) {
     .site-nav {

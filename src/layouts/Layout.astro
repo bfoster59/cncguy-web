@@ -25,6 +25,15 @@ const { title, description = 'Precision tools for CNC machinists. Built on shop 
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0a0a0a" />
+    <script is:inline>
+      // No-FOUC theme bootstrap — runs before paint
+      (function () {
+        try {
+          var t = localStorage.getItem('cncguy-theme');
+          if (t && t !== 'dark') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <slot />

@@ -1,0 +1,399 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+type Status = 'shipping' | 'beta' | 'soon' | 'planned';
+
+interface Tool {
+  name: string;
+  tag: string;
+  status: Status;
+  blurb: string;
+  bullets: string[];
+  href: string;
+  cta: string;
+}
+
+const tools: Tool[] = [
+  {
+    name: 'CNCGuy Edit',
+    tag: 'Editor',
+    status: 'beta',
+    blurb: 'A G-code editor that thinks like a machinist. Live backplot, Fanuc-dialect syntax, fast open on huge files.',
+    bullets: [
+      'Monaco-grade editor with G-code syntax',
+      'Canvas backplot with rapid/cut color split',
+      'Renumber, transform, range scan, find/replace',
+      'Tabbed multi-file workflow',
+    ],
+    href: '/edit',
+    cta: 'Open product page →',
+  },
+  {
+    name: 'CNCGuy Studio',
+    tag: 'Suite',
+    status: 'soon',
+    blurb: 'Shop-floor suite. Jobs, setups, tooling libraries, and revision control in one place.',
+    bullets: [
+      'Job + setup tracking',
+      'Tool & holder libraries',
+      'Document/revision control',
+      'Built on the same parser as Edit',
+    ],
+    href: '/notify',
+    cta: 'Notify me →',
+  },
+  {
+    name: 'DNCGuy',
+    tag: 'Connectivity',
+    status: 'soon',
+    blurb: 'Drip-feed and file transfer to machines. Serial and Ethernet, no thousand-dollar legacy app required.',
+    bullets: [
+      'RS-232 drip-feed with handshake support',
+      'Ethernet send/receive',
+      'Per-machine queue history',
+      'Pairs with CNCGuy Edit for one-click send',
+    ],
+    href: '/notify',
+    cta: 'Notify me →',
+  },
+  {
+    name: 'FileBase',
+    tag: 'Library',
+    status: 'planned',
+    blurb: 'Searchable, versioned program library. Find that O-number from three jobs ago in seconds.',
+    bullets: [
+      'Full-text + metadata search',
+      'Per-machine, per-customer organization',
+      'Diff between revisions',
+      'Local-first, no cloud lock-in',
+    ],
+    href: '/notify',
+    cta: 'Notify me →',
+  },
+];
+
+const statusLabel: Record<Status, string> = {
+  shipping: 'Shipping',
+  beta: 'Beta · Shipping',
+  soon: 'Coming 2026',
+  planned: 'Planned',
+};
+---
+<Layout
+  title="The Workbench — CNCGuy"
+  description="Every CNCGuy tool. One place. The full lineup of shop-floor software — Edit, Studio, DNCGuy, FileBase."
+>
+  <Nav />
+
+  <main>
+    <section class="wb-hero grid-bg">
+      <div class="container wb-hero-inner">
+        <span class="eyebrow-line">The Workbench</span>
+        <h1 class="wb-hero-title">Every tool. <span class="accent">One place.</span></h1>
+        <p class="wb-hero-sub">
+          The full CNCGuy lineup — built on the floor, for the floor. Use one,
+          or use them together. They're designed to share parsers, libraries,
+          and state.
+        </p>
+        <div class="wb-hero-meta">
+          <span class="wb-meta-item"><span class="wb-meta-num">{tools.length}</span> tools</span>
+          <span class="wb-meta-sep" aria-hidden="true">·</span>
+          <span class="wb-meta-item">{tools.filter(t => t.status === 'beta' || t.status === 'shipping').length} shipping</span>
+          <span class="wb-meta-sep" aria-hidden="true">·</span>
+          <span class="wb-meta-item">No subscription. Ever.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wb-list">
+      <div class="container">
+        <div class="wb-grid">
+          {tools.map((t, i) => (
+            <article class={`wb-card status-${t.status}`}>
+              <div class="wb-card-head">
+                <div class="wb-card-num">{(i + 1).toString().padStart(2, '0')}</div>
+                <div class={`wb-status status-chip-${t.status}`}>{statusLabel[t.status]}</div>
+              </div>
+              <div class="wb-card-tag">{t.tag}</div>
+              <h2 class="wb-card-title">{t.name}</h2>
+              <p class="wb-card-blurb">{t.blurb}</p>
+              <ul class="wb-card-bullets">
+                {t.bullets.map(b => <li>{b}</li>)}
+              </ul>
+              <a href={t.href} class="wb-card-cta">{t.cta}</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="wb-bottom">
+      <div class="container wb-bottom-inner">
+        <div>
+          <span class="eyebrow-line">Why one workbench</span>
+          <h2 class="wb-bottom-title">Tools that know each other.</h2>
+          <p class="wb-bottom-body">
+            Most shop software is a walled garden. The CNCGuy lineup shares one
+            G-code parser, one tooling format, one project model. Edit a program
+            in Edit, push it from DNCGuy, log it in FileBase. No exports, no
+            re-entry, no thousand-dollar integration.
+          </p>
+        </div>
+        <div class="wb-bottom-cta">
+          <a href="/edit#download" class="cta-primary large">Download CNCGuy Edit [Beta]</a>
+          <a href="/notify" class="btn-secondary">Notify me on the rest →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  main { background: var(--bg-1); }
+
+  /* ---- Hero ---- */
+  .wb-hero {
+    padding: 96px 0 72px;
+    border-bottom: 1px solid var(--line-1);
+    position: relative;
+    overflow: hidden;
+  }
+  .wb-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(217,96,31,0.10), transparent 70%);
+    pointer-events: none;
+  }
+  .wb-hero-inner { text-align: center; position: relative; z-index: 1; }
+  .wb-hero-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(48px, 6.5vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 22px 0 18px;
+  }
+  .wb-hero-title .accent {
+    color: var(--cnc-accent);
+    text-shadow: 0 0 28px var(--cnc-accent-glow);
+  }
+  .wb-hero-sub {
+    max-width: 640px;
+    margin: 0 auto 24px;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--fg-2);
+  }
+  .wb-hero-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+  .wb-meta-num { color: var(--cnc-accent); font-weight: 600; margin-right: 4px; }
+  .wb-meta-sep { color: var(--line-3); }
+
+  /* ---- Card grid ---- */
+  .wb-list { padding: clamp(64px, 9vw, 104px) 0; }
+  .wb-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .wb-card {
+    position: relative;
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, var(--bg-2), var(--bg-3));
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: var(--shadow-card);
+    transition: border-color var(--dur-med) var(--ease-std),
+                box-shadow var(--dur-med) var(--ease-std),
+                transform var(--dur-med) var(--ease-std);
+  }
+  .wb-card::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--cnc-accent);
+    opacity: 0;
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
+    transition: opacity var(--dur-med) var(--ease-std);
+  }
+  .wb-card:hover {
+    border-color: var(--cnc-accent);
+    box-shadow:
+      var(--shadow-card),
+      0 0 28px var(--cnc-accent-glow-soft);
+    transform: translateY(-2px);
+  }
+  .wb-card:hover::before { opacity: 1; }
+  /* Currently-shipping cards get the orange rail at rest */
+  .wb-card.status-beta::before,
+  .wb-card.status-shipping::before { opacity: 1; }
+
+  .wb-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .wb-card-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    color: var(--fg-4);
+  }
+  .wb-status {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--line-2);
+    color: var(--fg-3);
+    background: var(--bg-3);
+  }
+  .status-chip-beta,
+  .status-chip-shipping {
+    color: var(--cnc-accent);
+    border-color: var(--cnc-accent);
+    background: var(--cnc-accent-tint);
+  }
+  .status-chip-soon { color: var(--fg-2); }
+  .status-chip-planned { color: var(--fg-4); }
+
+  .wb-card-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    margin-top: 4px;
+  }
+  .wb-card-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(26px, 2.6vw, 32px);
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 0;
+    transition: color var(--dur-med) var(--ease-std);
+  }
+  .wb-card:hover .wb-card-title { color: var(--cnc-accent); }
+  .wb-card-blurb {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--fg-2);
+    margin: 0;
+  }
+  .wb-card-bullets {
+    list-style: none;
+    margin: 4px 0 12px;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .wb-card-bullets li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--fg-2);
+  }
+  .wb-card-bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 9px;
+    width: 8px; height: 1px;
+    background: var(--cnc-accent);
+  }
+  .wb-card-cta {
+    margin-top: auto;
+    align-self: flex-start;
+    color: var(--cnc-accent);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-2);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color var(--dur-fast) var(--ease-std);
+  }
+  .wb-card-cta::after {
+    content: "→";
+    transition: transform var(--dur-med) var(--ease-out);
+  }
+  .wb-card:hover .wb-card-cta::after { transform: translateX(4px); }
+
+  /* ---- Bottom CTA strip ---- */
+  .wb-bottom {
+    padding: clamp(64px, 9vw, 96px) 0;
+    border-top: 1px solid var(--line-1);
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(217,96,31,0.06), transparent 70%),
+      var(--bg-1);
+  }
+  .wb-bottom-inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .wb-bottom-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(28px, 3.2vw, 38px);
+    line-height: 1.08;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 12px 0 16px;
+  }
+  .wb-bottom-body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--fg-2);
+    margin: 0;
+    max-width: 580px;
+  }
+  .wb-bottom-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+  }
+
+  @media (max-width: 900px) {
+    .wb-grid { grid-template-columns: 1fr; }
+    .wb-bottom-inner { grid-template-columns: 1fr; gap: 28px; }
+    .wb-bottom-cta { align-items: stretch; }
+    .wb-hero-meta {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+  }
+</style>

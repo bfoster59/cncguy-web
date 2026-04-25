@@ -15,6 +15,13 @@
   --cnc-accent-deep:   #8a3810; /* shadow / tint / deep wash */
   --cnc-accent-ink:    #ffffff; /* text on the accent */
 
+  /* ---- Orange-channel utility tokens (kinetic threading, TNRCalc-style) ---- */
+  --cnc-accent-glow:   rgba(217, 96, 31, 0.28); /* CTA rest/hover shadow */
+  --cnc-accent-glow-soft: rgba(217, 96, 31, 0.16); /* card hover shadow */
+  --cnc-accent-tint:   rgba(217, 96, 31, 0.08);  /* faint wash, icon tile bg */
+  --cnc-accent-tint-2: rgba(217, 96, 31, 0.14);  /* slightly stronger wash */
+  --cnc-accent-rule:   rgba(217, 96, 31, 0.55);  /* dim orange for thin rules */
+
   /* ---- Neutrals (dark-theme-first) ---- */
   --fg-1:  #f2f2f1;   /* primary text on dark */
   --fg-2:  #c8c8c5;   /* body copy */
@@ -91,6 +98,68 @@
   /* ---- Industrial motif: faint grid ---- */
   --grid-ink: rgba(255,255,255,0.035);
   --grid-size: 48px;
+
+  /* ---- Surface overlays — theme-aware tints used in radial washes etc. ---- */
+  --surface-edge-hi: rgba(255,255,255,0.04);
+  --surface-edge-lo: rgba(0,0,0,0.35);
+  --nav-bg: rgba(10, 10, 10, 0.85);
+}
+
+/* ================================================================
+   Theme: Light
+   ================================================================ */
+html[data-theme="light"] {
+  --fg-1: #1a1d23;
+  --fg-2: #3a4150;
+  --fg-3: #6b7282;
+  --fg-4: #9aa0ac;
+
+  --bg-0: #ffffff;
+  --bg-1: #fafaf9;
+  --bg-2: #f3f3f1;
+  --bg-3: #ebebe8;
+  --bg-4: #dedcd6;
+
+  --line-1: #e3e2dd;
+  --line-2: #d2d0c9;
+  --line-3: #b8b5ac;
+
+  --grid-ink: rgba(0,0,0,0.035);
+  --surface-edge-hi: rgba(0,0,0,0.04);
+  --surface-edge-lo: rgba(0,0,0,0.10);
+  --nav-bg: rgba(250, 250, 249, 0.85);
+
+  --shadow-card: 0 1px 0 rgba(255,255,255,0.6) inset, 0 6px 18px rgba(0,0,0,0.08);
+  --shadow-raise: 0 12px 30px rgba(0,0,0,0.12);
+
+  color-scheme: light;
+}
+
+/* ================================================================
+   Theme: Steel  (cool blue-gray, brushed-aluminum vibe)
+   ================================================================ */
+html[data-theme="steel"] {
+  --fg-1: #e6ebf2;
+  --fg-2: #c0c8d4;
+  --fg-3: #8590a0;
+  --fg-4: #566271;
+
+  --bg-0: #0c1219;
+  --bg-1: #141b24;
+  --bg-2: #1c242f;
+  --bg-3: #242d3a;
+  --bg-4: #2e3845;
+
+  --line-1: #2a3340;
+  --line-2: #36414f;
+  --line-3: #475263;
+
+  --grid-ink: rgba(180,200,220,0.045);
+  --surface-edge-hi: rgba(180,200,220,0.05);
+  --surface-edge-lo: rgba(0,0,0,0.45);
+  --nav-bg: rgba(20, 27, 36, 0.88);
+
+  color-scheme: dark;
 }
 
 /* ================================================================
