@@ -1,0 +1,165 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SectionEnd from '../components/SectionEnd.astro';
+
+const updated = '2026-04-25';
+---
+<Layout
+  title="Privacy — CNCGuy"
+  description="What CNC Guy collects, what it doesn't, and how to reach us. Short and honest."
+>
+  <Nav />
+
+  <main>
+    <section class="privacy-hero grid-bg">
+      <div class="container privacy-inner">
+        <span class="eyebrow-line">Privacy</span>
+        <h1 class="privacy-title">Short version: we don't collect much.</h1>
+        <p class="privacy-meta">Last updated · {updated}</p>
+
+        <h2 class="privacy-h2">What this site collects</h2>
+        <p>
+          <strong>Nothing</strong> from regular visitors. cncguy.com is a static
+          marketing site hosted on Cloudflare. No analytics, no tracking pixels,
+          no third-party scripts. Cloudflare logs standard server data (IP,
+          user-agent, request path) for security and abuse prevention; we don't
+          access it.
+        </p>
+
+        <h2 class="privacy-h2">What CNCGuy Edit collects</h2>
+        <p>
+          <strong>Nothing.</strong> CNCGuy Edit runs entirely on your machine.
+          Files you open stay on your machine. No telemetry, no usage analytics,
+          no phone-home. This will not change in v1.0.
+        </p>
+
+        <h2 class="privacy-h2">When you give us your email</h2>
+        <p>
+          The "Notify me" form on this site (when wired to a provider) will
+          store your email for one purpose: a single message when the product
+          you signed up for ships. No newsletters, no drip campaigns, no resale
+          to third parties. Reply to that one message asking to be removed and
+          your address is deleted within a week.
+        </p>
+
+        <h2 class="privacy-h2">When you email us</h2>
+        <p>
+          Email sent to <a href="mailto:hello@cncguy.com" class="inline-link">hello@cncguy.com</a>
+          is forwarded through Cloudflare Email Routing and lands in a personal
+          inbox. Your message and address are kept only as long as needed to
+          answer you. We don't add you to any list.
+        </p>
+
+        <h2 class="privacy-h2">Cookies</h2>
+        <p>
+          The only thing this site stores in your browser is a tiny preference
+          for which color theme you picked (Dark / Light / Steel) — kept in
+          <code>localStorage</code>, never sent to a server. Clear your browser
+          data and it's gone.
+        </p>
+
+        <h2 class="privacy-h2">Changes to this page</h2>
+        <p>
+          If we ever change what we collect — add real analytics, wire the
+          notify form, ship a Pro version with accounts — this page gets
+          updated and the date at the top changes. No surprise opt-ins.
+        </p>
+
+        <h2 class="privacy-h2">Questions</h2>
+        <p>
+          Email <a href="mailto:hello@cncguy.com" class="inline-link">hello@cncguy.com</a>
+          and we'll get back to you.
+        </p>
+
+        <p class="privacy-sign">— Bob Foster · CNC Guy</p>
+      </div>
+      <SectionEnd code="M30" />
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  main { background: var(--bg-1); }
+  .privacy-hero {
+    padding: 96px 0 96px;
+    border-bottom: 1px solid var(--line-1);
+    position: relative;
+    overflow: hidden;
+  }
+  .privacy-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 30% at 50% 0%, rgba(217,96,31,0.06), transparent 70%);
+    pointer-events: none;
+  }
+  .privacy-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .privacy-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(36px, 4.6vw, 56px);
+    line-height: 1.04;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 18px 0 12px;
+  }
+  .privacy-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+    margin: 0 0 36px;
+  }
+  .privacy-h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 32px 0 12px;
+  }
+  .privacy-inner p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--fg-2);
+    margin: 0 0 14px;
+  }
+  .privacy-inner p strong { color: var(--fg-1); }
+  .privacy-inner code {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    background: var(--bg-3);
+    border: 1px solid var(--line-2);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--cnc-accent);
+  }
+  .privacy-sign {
+    margin-top: 40px !important;
+    padding-top: 20px;
+    border-top: 1px solid var(--line-1);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--fg-3);
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 700px) {
+    .privacy-hero { padding: 56px 0 72px; }
+    .privacy-title { font-size: 30px; }
+    .privacy-h2 { font-size: 18px; margin: 28px 0 10px; }
+    .privacy-inner p { font-size: 15.5px; }
+  }
+</style>
