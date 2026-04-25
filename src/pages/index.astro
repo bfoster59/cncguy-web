@@ -52,7 +52,7 @@ const whatYouGet = [
     <section class="home-hero grid-bg">
       <div class="container home-hero-inner">
         <span class="eyebrow-line">CNC Guy · Est 1981</span>
-        <h1 class="home-hero-title">Machined From Experience.</h1>
+        <h1 class="home-hero-title">Machined <span class="accent">From Experience.</span></h1>
         <p class="home-hero-sub">Precision tools for CNC machinists. Built on shop floors, tested on shop floors.</p>
         <div class="home-hero-ctas">
           <a href="/edit" class="cta-primary">Download CNCGuy Edit [Beta]</a>
@@ -72,9 +72,9 @@ const whatYouGet = [
     <section class="home-products" id="products">
       <div class="container">
         <div class="section-heading">
-          <span class="eyebrow-line">01 · The Workbench</span>
+          <span class="eyebrow-line">01 · Products</span>
           <h2>Four decades of shop-floor gripes, turned into software.</h2>
-          <p>Use what you need.</p>
+          <p>Use what you need. <a href="/workbench" class="inline-link">See the full workbench →</a></p>
         </div>
 
         <div class="products-grid">
@@ -90,19 +90,37 @@ const whatYouGet = [
       </div>
     </section>
 
-    <section class="home-about" id="about">
-      <div class="container home-about-inner">
-        <div>
-          <span class="eyebrow-line">About</span>
-          <h2 class="home-about-title">Built by a machinist.</h2>
-          <p class="home-about-body">
-            I've been programming and running CNC machines for 45 years.
-            I got tired of paying $700 for software that feels like 2008.
-            CNC Guy is what I wish I'd had on my bench every day of my career.
+    <section class="home-story" id="story">
+      <div class="container story-inner">
+        <div class="story-copy">
+          <span class="eyebrow-line">The Story</span>
+          <h2 class="story-title">Forty-five years. One goal.</h2>
+          <p class="story-body">
+            I started running a Bridgeport in 1981. I've programmed 5-axis mills,
+            set up grind cells, signed off on AS9100 audits, and trained more
+            apprentices than I can count. Every tool on this site exists because
+            I needed it on a real job and couldn't find one that got it right.
+          </p>
+          <blockquote class="story-pull">
+            If it doesn't work on the shop floor, it doesn't ship.
+          </blockquote>
+          <p class="story-body">
+            CNC Guy isn't a software company run by web developers. It's a
+            toolbox built by a machinist, for machinists. New apps ship when
+            they're ready — not when a roadmap says so.
           </p>
         </div>
-        <div class="home-about-photo" aria-hidden="true">
-          <span>FOUNDER PHOTO</span>
+
+        <div class="story-stats" aria-label="Credentials">
+          <div class="stat">
+            <div class="stat-num">45<span class="stat-plus">+</span></div>
+            <div class="stat-label">Years on the floor</div>
+          </div>
+          <div class="stat-rule" aria-hidden="true"></div>
+          <div class="stat">
+            <div class="stat-num stat-num-text">AS9100</div>
+            <div class="stat-label">Aerospace quality trained</div>
+          </div>
         </div>
       </div>
     </section>
@@ -145,21 +163,40 @@ const whatYouGet = [
     background: var(--bg-1);
   }
   .home-hero {
-    padding: 96px 0 88px;
+    padding: 104px 0 88px;
     border-bottom: 1px solid var(--line-1);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Subtle radial wash — a hint of warmth above the fold without a banner */
+  .home-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(217,96,31,0.10), transparent 70%),
+      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(217,96,31,0.04), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
   }
   .home-hero-inner {
     text-align: center;
+    position: relative;
+    z-index: 1;
   }
   .home-hero-title {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(48px, 6vw, 62px);
+    font-size: clamp(48px, 6.5vw, 68px);
     line-height: 1.02;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
     text-transform: uppercase;
     color: var(--fg-1);
-    margin: 22px 0 18px;
+    margin: 24px 0 20px;
+  }
+  .home-hero-title .accent {
+    color: var(--cnc-accent);
+    text-shadow: 0 0 28px var(--cnc-accent-glow);
   }
   .home-hero-sub {
     font-size: 19px;
@@ -171,12 +208,12 @@ const whatYouGet = [
   .home-hero-ctas {
     display: inline-flex;
     gap: 14px;
-    margin-bottom: 56px;
+    margin-bottom: 64px;
     flex-wrap: wrap;
     justify-content: center;
   }
   .home-hero-shot {
-    max-width: 960px;
+    max-width: 1040px;
     margin: 0 auto;
   }
   .home-products {
@@ -197,11 +234,20 @@ const whatYouGet = [
     gap: 14px;
     text-decoration: none;
     color: inherit;
-    transition: border-color var(--dur-med) var(--ease-std), transform var(--dur-med) var(--ease-std);
+    position: relative;
+    transition: border-color var(--dur-med) var(--ease-std),
+                transform var(--dur-med) var(--ease-std),
+                box-shadow var(--dur-med) var(--ease-std),
+                background var(--dur-med) var(--ease-std);
   }
+  /* Orange thread #7 — product card hover crosses to orange border + glow */
   .product-card:hover {
-    border-color: var(--line-3);
-    transform: translateY(-2px);
+    border-color: var(--cnc-accent);
+    transform: translateY(-3px);
+    background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
+    box-shadow:
+      0 16px 40px rgba(0,0,0,0.55),
+      0 0 0 1px var(--cnc-accent-tint);
   }
   .product-card h3 {
     font-family: var(--font-display);
@@ -211,7 +257,9 @@ const whatYouGet = [
     text-transform: uppercase;
     color: var(--fg-1);
     margin: 0;
+    transition: color var(--dur-med) var(--ease-std);
   }
+  .product-card:hover h3 { color: var(--cnc-accent); }
   .product-card p {
     font-size: 15px;
     line-height: 1.55;
@@ -224,6 +272,14 @@ const whatYouGet = [
     font-size: 13px;
     color: var(--fg-2);
     margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color var(--dur-med) var(--ease-std), gap var(--dur-med) var(--ease-out);
+  }
+  .product-card:hover .product-cta {
+    color: var(--cnc-accent);
+    gap: 10px;
   }
   .chip {
     display: inline-flex;
@@ -247,46 +303,88 @@ const whatYouGet = [
     border: 1px solid var(--line-2);
     background: var(--bg-3);
   }
-  .home-about {
+  .home-story {
     padding: clamp(72px, 10vw, 120px) 0;
     border-top: 1px solid var(--line-1);
   }
-  .home-about-inner {
+  .story-inner {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 48px;
+    grid-template-columns: 1fr 360px;
+    gap: 56px;
     align-items: center;
   }
-  .home-about-title {
+  .story-copy { max-width: 640px; }
+  .story-title {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(30px, 3.4vw, 40px);
-    line-height: 1.08;
+    font-size: clamp(34px, 4.4vw, 56px);
+    line-height: 1.04;
     letter-spacing: -0.005em;
     text-transform: uppercase;
     color: var(--fg-1);
-    margin: 12px 0 12px;
+    margin: 14px 0 24px;
   }
-  .home-about-body {
+  .story-body {
     font-size: 17px;
     line-height: 1.6;
     color: var(--fg-2);
-    margin: 0;
-    max-width: 620px;
+    margin: 0 0 24px;
   }
-  .home-about-photo {
-    width: 200px;
-    height: 200px;
-    border: 1px dashed var(--line-2);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--fg-4);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
+  .story-pull {
+    margin: 28px 0;
+    padding: 6px 0 6px 18px;
+    border-left: 3px solid var(--cnc-accent);
+    font-family: var(--font-display);
+    font-weight: 600;
     text-transform: uppercase;
+    color: var(--cnc-accent);
+    font-size: clamp(18px, 2vw, 24px);
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+
+  .story-stats {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, var(--bg-2), var(--bg-3));
+    padding: 28px 28px;
+    box-shadow: var(--shadow-card);
+  }
+  .stat {
+    padding: 10px 0;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(56px, 6vw, 84px);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    color: var(--cnc-accent);
+    text-shadow: 0 0 28px var(--cnc-accent-glow);
+  }
+  .stat-num-text {
+    font-size: clamp(40px, 4.6vw, 64px);
+  }
+  .stat-plus {
+    font-size: 0.7em;
+    margin-left: 2px;
+    color: var(--cnc-accent);
+  }
+  .stat-label {
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+  .stat-rule {
+    height: 1px;
+    background: var(--line-2);
+    margin: 6px 0;
   }
   .home-features {
     padding: clamp(72px, 10vw, 120px) 0;
@@ -299,6 +397,18 @@ const whatYouGet = [
   }
   .wyg-tile {
     padding: 4px 0;
+    border-top: 1px solid var(--line-1);
+    padding-top: 24px;
+    position: relative;
+  }
+  /* A small orange tick at the top of each tile — TNRCalc-style kinetic mark */
+  .wyg-tile::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 0;
+    width: 32px; height: 1px;
+    background: var(--cnc-accent);
+    box-shadow: 0 0 6px var(--cnc-accent-glow);
   }
   .wyg-tile h3 {
     font-family: var(--font-display);
@@ -319,7 +429,7 @@ const whatYouGet = [
     font-family: var(--font-mono);
     font-size: 10px;
     letter-spacing: 0.24em;
-    color: var(--fg-4);
+    color: var(--cnc-accent);
     text-transform: uppercase;
   }
   .home-notify {
@@ -357,9 +467,14 @@ const whatYouGet = [
     font-family: var(--font-body);
     font-size: 14px;
     min-width: 260px;
+    transition: border-color var(--dur-fast) var(--ease-std),
+                box-shadow var(--dur-med) var(--ease-std);
   }
+  .home-notify-form input::placeholder { color: var(--fg-4); }
   .home-notify-form input:focus {
-    outline: 1px solid var(--line-3);
+    outline: none;
+    border-color: var(--cnc-accent);
+    box-shadow: 0 0 0 3px var(--cnc-accent-glow-soft);
   }
   @media (max-width: 900px) {
     .home-hero { padding: 48px 0 56px; }
@@ -367,11 +482,15 @@ const whatYouGet = [
     .home-hero-sub { font-size: 16px; margin: 0 auto 28px; }
     .home-hero-ctas { margin-bottom: 36px; }
     .products-grid { grid-template-columns: 1fr; gap: 14px; }
-    .home-about-inner {
+    .story-inner {
       grid-template-columns: 1fr;
-      gap: 24px;
+      gap: 32px;
     }
-    .home-about-photo { width: 100%; height: 160px; }
+    .story-stats {
+      max-width: 420px;
+      margin: 0 auto;
+      width: 100%;
+    }
     .wyg-grid { grid-template-columns: 1fr; gap: 16px; }
     .home-notify-inner { flex-direction: column; align-items: stretch; }
     .home-notify-form { flex-direction: column; }

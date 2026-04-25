@@ -84,9 +84,14 @@ import Footer from '../components/Footer.astro';
     color: var(--fg-1);
     font-family: var(--font-body);
     font-size: 15px;
+    transition: border-color var(--dur-fast) var(--ease-std),
+                box-shadow var(--dur-med) var(--ease-std);
   }
+  .notify-form input::placeholder { color: var(--fg-4); }
   .notify-form input:focus {
-    outline: 1px solid var(--line-3);
+    outline: none;
+    border-color: var(--cnc-accent);
+    box-shadow: 0 0 0 3px var(--cnc-accent-glow-soft);
   }
   .notify-fine {
     font-family: var(--font-mono);

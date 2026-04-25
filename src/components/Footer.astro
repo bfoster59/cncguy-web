@@ -27,7 +27,18 @@ const links = [
   .site-footer {
     background: #000;
     border-top: 1px solid var(--line-1);
-    padding: 28px 0;
+    padding: 36px 0 32px;
+    position: relative;
+  }
+  /* Orange tick — the same kinetic mark used on eyebrows. Anchors the footer. */
+  .site-footer::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: 50%;
+    transform: translateX(-50%);
+    width: 64px; height: 1px;
+    background: var(--cnc-accent);
+    box-shadow: 0 0 8px var(--cnc-accent-glow);
   }
   .footer-inner {
     display: flex;
@@ -62,7 +73,7 @@ const links = [
     transition: color 120ms var(--ease-std);
   }
   .footer-link:hover {
-    color: var(--fg-1);
+    color: var(--cnc-accent);
   }
   @media (max-width: 900px) {
     .footer-inner {

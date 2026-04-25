@@ -97,6 +97,7 @@ const roadmap = [
   }
   .roadmap-chip {
     border: 1px solid var(--line-2);
+    border-left: 2px solid var(--cnc-accent);
     padding: 10px 12px;
     border-radius: var(--radius-sm);
     background: var(--bg-2);
@@ -104,9 +105,15 @@ const roadmap = [
     justify-content: space-between;
     gap: 8px;
     align-items: center;
+    color: var(--fg-2);
+    transition: border-color var(--dur-med) var(--ease-std), background var(--dur-med) var(--ease-std);
+  }
+  .roadmap-chip:hover {
+    border-color: var(--cnc-accent);
+    background: var(--bg-3);
   }
   .roadmap-tag {
-    color: var(--fg-3);
+    color: var(--cnc-accent);
   }
   @media (max-width: 900px) {
     .honesty { padding: 56px 0; }

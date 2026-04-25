@@ -60,12 +60,21 @@
     max-width: 440px;
   }
   .download-meta {
-    margin-top: 14px;
+    margin-top: 16px;
     font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--fg-4);
+    color: var(--fg-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .download-meta::before {
+    content: "";
+    width: 18px; height: 1px;
+    background: var(--cnc-accent);
+    box-shadow: 0 0 6px var(--cnc-accent-glow);
   }
   .callout-badge-wrap {
     min-width: 44px;
@@ -73,7 +82,8 @@
   .callout-badge {
     width: 40px;
     height: 40px;
-    border: 1px solid var(--line-3);
+    border: 1px solid var(--cnc-accent);
+    background: var(--cnc-accent-tint);
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
@@ -81,7 +91,8 @@
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 16px;
-    color: var(--fg-2);
+    color: var(--cnc-accent);
+    box-shadow: 0 0 12px var(--cnc-accent-glow-soft);
   }
   .callout-lead {
     color: var(--fg-1);
