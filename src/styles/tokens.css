@@ -103,6 +103,9 @@
   --surface-edge-hi: rgba(255,255,255,0.04);
   --surface-edge-lo: rgba(0,0,0,0.35);
   --nav-bg: rgba(10, 10, 10, 0.85);
+
+  /* ---- Heavy drop shadow for permanently-raised frames (chrome screenshots) ---- */
+  --shadow-frame: 0 18px 50px rgba(0,0,0,0.55);
 }
 
 /* ================================================================
@@ -131,6 +134,7 @@ html[data-theme="light"] {
 
   --shadow-card: 0 1px 0 rgba(255,255,255,0.6) inset, 0 6px 18px rgba(0,0,0,0.08);
   --shadow-raise: 0 12px 30px rgba(0,0,0,0.12);
+  --shadow-frame: 0 14px 40px rgba(0,0,0,0.10);
 
   color-scheme: light;
 }
@@ -158,6 +162,8 @@ html[data-theme="steel"] {
   --surface-edge-hi: rgba(180,200,220,0.05);
   --surface-edge-lo: rgba(0,0,0,0.45);
   --nav-bg: rgba(20, 27, 36, 0.88);
+  --shadow-raise: 0 12px 36px rgba(0,0,0,0.55);
+  --shadow-frame: 0 18px 50px rgba(0,0,0,0.62);
 
   color-scheme: dark;
 }
