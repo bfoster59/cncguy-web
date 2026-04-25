@@ -1,19 +1,18 @@
 ---
 const links = [
-  { label: 'Edit', href: '/edit' },
-  { label: 'Studio', href: '/notify' },
-  { label: 'DNCGuy', href: '/notify' },
+  { label: 'Products', href: '/#products' },
+  { label: 'Workbench', href: '/workbench' },
+  { label: 'The Story', href: '/#story' },
   { label: 'Contact', href: 'mailto:hello@cncguy.com' },
-  { label: 'GitHub', href: 'https://github.com/bfoster59' },
-  { label: 'Privacy', href: '/privacy' },
 ];
 ---
 <footer class="site-footer">
   <div class="container footer-inner">
-    <div class="footer-brand">
+    <a href="/" class="footer-brand nav-brand">
+      <span class="monogram" aria-label="G54 — work coordinate origin"><span class="mono-g">G</span><span class="mono-num">54</span></span>
       <span class="wm" style="font-size: 15px;">CNCGuy</span>
-      <span class="footer-copy">© 2026 CNC Guy · Machined From Experience</span>
-    </div>
+      <span class="footer-copy">© 2026 CNC Guy · Machined With Experience</span>
+    </a>
 
     <nav class="footer-links">
       {links.map((link) => (
@@ -50,8 +49,9 @@ const links = [
   .footer-brand {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
     flex-wrap: wrap;
+    text-decoration: none;
   }
   .footer-copy {
     font-family: var(--font-mono);
@@ -62,18 +62,36 @@ const links = [
   }
   .footer-links {
     display: flex;
-    gap: 22px;
+    gap: 28px;
     flex-wrap: wrap;
+    align-items: center;
   }
+  /* Footer links match nav-link: same size, font, underline-on-hover animation */
   .footer-link {
+    position: relative;
     color: var(--fg-3);
     text-decoration: none;
-    font-size: 13px;
+    font-size: 14px;
     font-family: var(--font-body);
-    transition: color 120ms var(--ease-std);
+    padding: 4px 0;
+    transition: color var(--dur-fast) var(--ease-std);
   }
-  .footer-link:hover {
-    color: var(--cnc-accent);
+  .footer-link::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--cnc-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-med) var(--ease-out);
+    box-shadow: 0 0 6px var(--cnc-accent-glow);
+  }
+  .footer-link:hover { color: var(--cnc-accent); }
+  .footer-link:hover::after { transform: scaleX(1); }
+  .footer-link:focus-visible {
+    outline: 2px solid var(--cnc-accent);
+    outline-offset: 4px;
+    border-radius: 2px;
   }
   @media (max-width: 900px) {
     .footer-inner {

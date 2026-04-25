@@ -1,0 +1,132 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout
+  title="M99 — Return to Main Program · CNCGuy"
+  description="That subprogram doesn't exist. M99 — Return to Main Program."
+>
+  <Nav />
+
+  <main>
+    <section class="m99-hero grid-bg">
+      <div class="container m99-inner">
+        <span class="eyebrow-line">Subprogram Not Found</span>
+        <h1 class="m99-code">M99</h1>
+        <p class="m99-title">Return to Main Program.</p>
+        <p class="m99-sub">
+          That URL doesn't exist on this control. Could be a stale link, a
+          mistyped block, or a page we haven't shipped yet.
+        </p>
+
+        <div class="m99-block" aria-label="G-code call trace">
+          <div class="m99-block-line">N0010 G65 P9999 ( CALL FROM <span id="m99-from">/</span> )</div>
+          <div class="m99-block-line">N0020 ( ALARM 506: SUBPROGRAM NOT FOUND )</div>
+          <div class="m99-block-line m99-block-line-end">N0030 M99    ( RETURN TO MAIN )</div>
+        </div>
+
+        <div class="m99-ctas">
+          <a href="/" class="cta-primary large">Return to home →</a>
+          <a href="/workbench" class="btn-secondary">See the workbench</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script is:inline>
+    // Show the offending path in the G-code call trace
+    (function () {
+      try {
+        var el = document.getElementById('m99-from');
+        if (el) el.textContent = location.pathname || '/';
+      } catch (e) {}
+    })();
+  </script>
+</Layout>
+
+<style>
+  main { background: var(--bg-1); }
+  .m99-hero {
+    padding: 96px 0 120px;
+    border-bottom: 1px solid var(--line-1);
+    min-height: calc(100vh - 200px);
+    position: relative;
+    overflow: hidden;
+  }
+  .m99-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(217,96,31,0.10), transparent 70%);
+    pointer-events: none;
+  }
+  .m99-inner {
+    max-width: 720px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .m99-code {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(120px, 18vw, 220px);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--cnc-accent);
+    text-shadow: 0 0 40px var(--cnc-accent-glow);
+    margin: 24px 0 12px;
+  }
+  .m99-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(28px, 3.6vw, 40px);
+    line-height: 1.06;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 0 0 18px;
+  }
+  .m99-sub {
+    font-size: 17px;
+    color: var(--fg-2);
+    line-height: 1.55;
+    margin: 0 auto 28px;
+    max-width: 520px;
+  }
+  /* G-code call-trace block — looks like an editor pane */
+  .m99-block {
+    text-align: left;
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
+    border-left: 2px solid var(--cnc-accent);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    margin: 0 auto 36px;
+    max-width: 520px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--fg-2);
+  }
+  .m99-block-line { white-space: pre; overflow-x: auto; }
+  .m99-block-line-end { color: var(--cnc-accent); font-weight: 500; }
+  .m99-ctas {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  @media (max-width: 700px) {
+    .m99-hero { padding: 56px 0 72px; }
+    .m99-code { font-size: 110px; }
+    .m99-title { font-size: 24px; }
+    .m99-block { font-size: 11.5px; padding: 14px 16px; }
+    .m99-ctas { flex-direction: column; align-items: stretch; }
+  }
+</style>

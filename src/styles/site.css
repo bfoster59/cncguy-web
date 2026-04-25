@@ -38,6 +38,49 @@ html, body {
 .eyebrow-line.muted { color: var(--fg-3); }
 .eyebrow-line.muted::before { background: var(--fg-4); box-shadow: none; }
 
+/* ---------- M-code section terminator ----------
+   Sits at the bottom-right of a section like a block-end in a G-code program.
+   The orange rule echoes the eyebrow rule — same kinetic mark, opposite end. */
+.section-end {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  position: absolute;
+  right: var(--gutter);
+  bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-4);
+  user-select: none;
+  pointer-events: none;
+  z-index: 2;
+}
+.section-end .section-end-rule {
+  width: 32px; height: 1px;
+  background: var(--cnc-accent);
+  box-shadow: 0 0 6px var(--cnc-accent-glow);
+  opacity: 0.6;
+}
+.section-end .section-end-code {
+  color: var(--cnc-accent);
+  font-weight: 600;
+}
+.section-end-m00 .section-end-rule { opacity: 0.85; }
+.section-end-m00 .section-end-code { text-shadow: 0 0 8px var(--cnc-accent-glow); }
+.section-end-m30 .section-end-rule {
+  width: 64px;
+  opacity: 1;
+}
+.section-end-m30 .section-end-code {
+  color: var(--cnc-accent);
+  text-shadow: 0 0 10px var(--cnc-accent-glow);
+}
+/* Sections that host a section-end need a positioning context.
+   Most page sections already do; this is a safety net. */
+section { position: relative; }
+
 /* Inline orange link — for sentence-level CTAs ("see more →") */
 .inline-link {
   color: var(--cnc-accent);
@@ -131,15 +174,26 @@ html, body {
 .wm .wm-sep { color: var(--fg-4); margin: 0 8px; font-weight: 500; }
 .wm .wm-sub { color: var(--fg-3); font-weight: 500; }
 
-/* Monogram — small kinetic detail. Orange right-side rule echoes the
-   eyebrow + CTA glow. */
+/* G54 monogram — work coordinate origin, machinist-insider mark.
+   Reads as "CNC [G54] GUY" alongside the wordmark.
+   Orange "54" + orange right-rail thread the kinetic mark through. */
 .monogram {
-  width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center;
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 34px;
+  padding: 0 9px;
   border: 1.5px solid var(--fg-1); color: var(--fg-1);
-  font-family: var(--font-display); font-weight: 700; font-size: 14px;
-  letter-spacing: -0.02em; border-radius: 2px;
+  font-family: var(--font-mono); font-weight: 600; font-size: 13px;
+  letter-spacing: 0.02em; border-radius: 2px;
   position: relative;
+  white-space: nowrap;
   transition: border-color var(--dur-med) var(--ease-std), color var(--dur-med) var(--ease-std);
+}
+.monogram .mono-g { color: var(--fg-1); }
+.monogram .mono-num {
+  color: var(--cnc-accent);
+  margin-left: 1px;
+  text-shadow: 0 0 8px var(--cnc-accent-glow);
+  transition: color var(--dur-med) var(--ease-std);
 }
 .monogram::after {
   content: "";
@@ -148,7 +202,8 @@ html, body {
   background: var(--cnc-accent);
   box-shadow: 0 0 6px var(--cnc-accent-glow);
 }
-.nav-brand:hover .monogram { border-color: var(--cnc-accent); color: var(--cnc-accent); }
+.nav-brand:hover .monogram { border-color: var(--cnc-accent); }
+.nav-brand:hover .monogram .mono-g { color: var(--cnc-accent); }
 
 /* ---------- Beta chip (inline, Oswald, orange).
    NOTE: the brief explicitly asks for an inline orange [BETA] chip on the
@@ -377,16 +432,41 @@ html, body {
   border-radius: 2px;
 }
 
-/* ---------- Fine print under CTA ---------- */
+/* ---------- Fine print under CTA ----------
+   Rendered as a G-code comment: ( ... ) in mono, parens auto-injected.
+   Comments in Fanuc/Mazak controls are wrapped in parens. */
 .fine-print {
-  font-size: 13px; line-height: 1.55; color: var(--fg-3);
-  max-width: 460px; margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px; line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--fg-3);
+  max-width: 520px; margin: 0;
 }
+.fine-print::before {
+  content: "( ";
+  color: var(--fg-4);
+  font-weight: 600;
+}
+.fine-print::after {
+  content: " )";
+  color: var(--fg-4);
+  font-weight: 600;
+}
+
+/* Generic G-code-style comment wrapper for anywhere ( ... ) reads naturally */
+.code-comment {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--fg-3);
+}
+.code-comment::before { content: "( "; color: var(--fg-4); font-weight: 600; }
+.code-comment::after  { content: " )"; color: var(--fg-4); font-weight: 600; }
 
 /* ---------- Mobile view — compact overrides (scoped with .mv) ---------- */
 .mv .container { padding: 0 18px; }
 .mv .wm { font-size: 17px; }
-.mv .monogram { width: 28px; height: 28px; font-size: 12px; }
+.mv .monogram { height: 28px; padding: 0 7px; font-size: 11px; }
 .mv .eyebrow-line { font-size: 10px; letter-spacing: 0.24em; }
 .mv .eyebrow-line::before { width: 18px; }
 .mv .section-heading h2 { font-size: 26px; }

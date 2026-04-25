@@ -171,7 +171,16 @@ html[data-theme="steel"] {
 /* ================================================================
    Base
    ================================================================ */
-html { background: var(--bg-1); color-scheme: dark; }
+html {
+  background: var(--bg-1);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  /* Leave room for the sticky nav when jumping to anchor IDs */
+  scroll-padding-top: 88px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
 body {
   margin: 0;
   font-family: var(--font-body);

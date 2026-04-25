@@ -1,0 +1,23 @@
+---
+/* CNC-themed section terminator. Appears at the bottom-right of a section
+   like a block-end mark in a G-code program.
+   - M01 = optional stop  (more sections follow; reader can pause)
+   - M00 = program stop   (pay attention — this is the action)
+   - M30 = end of program (true end of the page; nothing more to say)
+*/
+export interface Props {
+  code?: 'M00' | 'M01' | 'M30';
+  label?: string;
+}
+const { code = 'M01', label } = Astro.props;
+const defaults: Record<string, string> = {
+  M00: 'Program Stop',
+  M01: 'Optional Stop',
+  M30: 'End of Program',
+};
+const tip = label ?? defaults[code];
+---
+<div class={`section-end section-end-${code.toLowerCase()}`} aria-hidden="true">
+  <span class="section-end-rule"></span>
+  <span class="section-end-code" title={tip}>{code}</span>
+</div>

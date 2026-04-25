@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import SectionEnd from '../components/SectionEnd.astro';
 
 const products = [
   {
@@ -45,17 +46,17 @@ const whatYouGet = [
   },
 ];
 ---
-<Layout title="CNCGuy — Machined From Experience" description="Precision machining tools and apps built by a machinist with 45 years at the bench.">
+<Layout title="CNCGuy — Machined With Experience" description="Precision machining apps built by a 45-year aerospace veteran. Calculators, references, and software that actually work the way machinists think — because they were built by one.">
   <Nav />
 
   <main>
     <section class="home-hero grid-bg">
       <div class="container home-hero-inner">
-        <span class="eyebrow-line">CNC Guy · Est 1981</span>
-        <h1 class="home-hero-title">Machined <span class="accent">From Experience.</span></h1>
-        <p class="home-hero-sub">Precision tools for CNC machinists. Built on shop floors, tested on shop floors.</p>
+        <span class="eyebrow-line">Machined With Experience · Est. 1981</span>
+        <h1 class="home-hero-title">Tools Built <span class="accent">For The Shop Floor.</span></h1>
+        <p class="home-hero-sub">Precision machining apps built by a 45-year aerospace veteran. Calculators, references, and software that actually work the way machinists think — because they were built by one.</p>
         <div class="home-hero-ctas">
-          <a href="/edit" class="cta-primary">Download CNCGuy Edit [Beta]</a>
+          <a href="/edit" class="cta-primary">Download CNCGuy Edit →</a>
           <a href="#products" class="btn-secondary">See all products →</a>
         </div>
 
@@ -67,13 +68,14 @@ const whatYouGet = [
           <img src="/cncguy-edit-screenshot.png" alt="CNCGuy Edit — G-code editor with live backplot" />
         </div>
       </div>
+      <SectionEnd code="M01" />
     </section>
 
     <section class="home-products" id="products">
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow-line">01 · Products</span>
-          <h2>Four decades of shop-floor gripes, turned into software.</h2>
+          <h2>Four decades of shop-floor experience, turned into incredible software.</h2>
           <p>Use what you need. <a href="/workbench" class="inline-link">See the full workbench →</a></p>
         </div>
 
@@ -88,41 +90,78 @@ const whatYouGet = [
           ))}
         </div>
       </div>
+      <SectionEnd code="M01" />
     </section>
 
     <section class="home-story" id="story">
       <div class="container story-inner">
         <div class="story-copy">
           <span class="eyebrow-line">The Story</span>
-          <h2 class="story-title">Forty-five years. One goal.</h2>
+          <h2 class="story-title">Forty-five years on the floor.</h2>
           <p class="story-body">
-            I started running a Bridgeport in 1981. I've programmed 5-axis mills,
-            set up grind cells, signed off on AS9100 audits, and trained more
-            apprentices than I can count. Every tool on this site exists because
-            I needed it on a real job and couldn't find one that got it right.
+            I moved to Houston in 1981 because the steel industry tanked in
+            Northwest Indiana and I was an unemployed heavy-equipment operator.
+            The oil field was booming, so I packed it in and headed south. I
+            landed in the machine shop of a tubular-products manufacturer
+            running a band saw, cutting raw material for the die shop.
+          </p>
+          <p class="story-body">
+            A few weeks in, they trusted me on mills and lathes — all manual.
+            Then they bought a Mazak M1 retrofitted with a Fanuc 6T control,
+            and nobody wanted to touch it. <em>Except me.</em> I worked every
+            minute I could on that machine, often for free, until I owned it.
+            That was the beginning.
+          </p>
+          <p class="story-body">
+            From there I couldn't be stopped. Five years at a Houston shop with
+            twelve CNC lathes — Mori, Hess, McDonnell Douglas tape controls —
+            gave me serious depth. When the Houston bottom dropped out in 1986
+            I hightailed it back to Indiana and landed in a Chicago gear shop:
+            CNC lathes, CNC mills, hobbing, shaping, broaching. Another huge
+            exposure. In 2000 I moved into aerospace as a CNC programmer, which
+            I'd been doing on my own programs for years anyway.
+          </p>
+          <p class="story-body">
+            I've programmed mills, lathes, and multi-axis machines, set up
+            cells, maintained AS9100 compliance, and trained more machinists
+            and programmers than I can count. Every tool that makes it onto
+            this site exists because I needed it — or remember needing it —
+            to support a real job or fill a real need.
           </p>
           <blockquote class="story-pull">
             If it doesn't work on the shop floor, it doesn't ship.
           </blockquote>
           <p class="story-body">
-            CNC Guy isn't a software company run by web developers. It's a
-            toolbox built by a machinist, for machinists. New apps ship when
-            they're ready — not when a roadmap says so.
+            I've always been fascinated with code — Visual Basic, C++, Python —
+            and I started building tools for myself on the side. Eventually
+            those tools were good enough that other machinists kept asking for
+            them. CNC Guy is what I want for the industry: useful, affordable
+            software built by someone who's actually run the machines. It
+            starts with <strong>CNCGuy Edit</strong>. I hope you find it
+            useful — feedback is always welcome.
           </p>
         </div>
 
-        <div class="story-stats" aria-label="Credentials">
-          <div class="stat">
-            <div class="stat-num">45<span class="stat-plus">+</span></div>
-            <div class="stat-label">Years on the floor</div>
+        <div class="story-side">
+          <div class="story-stats" aria-label="Credentials">
+            <div class="stat">
+              <div class="stat-num">45<span class="stat-plus">+</span></div>
+              <div class="stat-label">Years on the floor</div>
+            </div>
+            <div class="stat-rule" aria-hidden="true"></div>
+            <div class="stat">
+              <div class="stat-num stat-num-text">AS9100</div>
+              <div class="stat-label">Aerospace quality trained</div>
+            </div>
           </div>
-          <div class="stat-rule" aria-hidden="true"></div>
-          <div class="stat">
-            <div class="stat-num stat-num-text">AS9100</div>
-            <div class="stat-label">Aerospace quality trained</div>
-          </div>
+
+          <figure class="story-photo">
+            <img src="/founder-bob.jpg" alt="Bob Foster, founder of CNC Guy, at a DMG Mori MSX-500III lathe control" width="880" height="880" loading="lazy" decoding="async" />
+            <figcaption class="story-photo-cap">Bob Foster · CNC Guy founder</figcaption>
+          </figure>
         </div>
       </div>
+      <SectionEnd code="M01" />
     </section>
 
     <section class="home-features">
@@ -142,6 +181,18 @@ const whatYouGet = [
           ))}
         </div>
       </div>
+      <SectionEnd code="M01" />
+    </section>
+
+    <section class="home-download" id="download">
+      <div class="container home-download-inner">
+        <span class="eyebrow-line">03 · Free Beta · Windows</span>
+        <h2 class="home-download-title">Try CNCGuy Edit today.</h2>
+        <p class="home-download-sub">No account, no email. Free through October 2026.</p>
+        <a href="/edit#download" class="cta-primary large">Download CNCGuy Edit →</a>
+        <p class="home-download-meta">v0.9 Beta · Windows 10/11 · 48 MB</p>
+      </div>
+      <SectionEnd code="M00" />
     </section>
 
     <section class="home-notify">
@@ -152,6 +203,7 @@ const whatYouGet = [
           <button type="submit" class="btn-secondary">Notify me</button>
         </form>
       </div>
+      <SectionEnd code="M30" />
     </section>
   </main>
 
@@ -311,8 +363,72 @@ const whatYouGet = [
     display: grid;
     grid-template-columns: 1fr 360px;
     gap: 56px;
-    align-items: center;
+    align-items: start;
   }
+  .story-side {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 96px;
+  }
+  .story-photo {
+    margin: 0;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-2);
+    position: relative;
+    box-shadow:
+      0 1px 0 var(--surface-edge-hi) inset,
+      var(--shadow-raise),
+      0 0 0 1px var(--cnc-accent-rule);
+    transition: box-shadow var(--dur-med) var(--ease-std),
+                transform var(--dur-med) var(--ease-std);
+  }
+  .story-photo:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 var(--surface-edge-hi) inset,
+      var(--shadow-frame),
+      0 0 0 1px var(--cnc-accent),
+      0 0 24px var(--cnc-accent-glow-soft);
+  }
+  .story-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 30% 40%;
+    display: block;
+    filter: saturate(1.05) contrast(1.02);
+  }
+  /* Caption appears on the photo's bottom — mono, small, like an equipment tag */
+  .story-photo-cap {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.65) 60%);
+  }
+  /* Orange corner brackets — same kinetic mark we use elsewhere */
+  .story-photo::before,
+  .story-photo::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--cnc-accent);
+    opacity: 0.85;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .story-photo::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .story-photo::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
   .story-copy { max-width: 640px; }
   .story-title {
     font-family: var(--font-display);
@@ -432,6 +548,54 @@ const whatYouGet = [
     color: var(--cnc-accent);
     text-transform: uppercase;
   }
+  /* ---- Download CTA strip — primary action repeated as a dedicated band ---- */
+  .home-download {
+    padding: clamp(72px, 10vw, 120px) 0;
+    border-top: 1px solid var(--line-1);
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-1);
+  }
+  .home-download::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(217,96,31,0.10), transparent 70%);
+    pointer-events: none;
+  }
+  .home-download-inner {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+  }
+  .home-download-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(36px, 4.6vw, 56px);
+    line-height: 1.04;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    color: var(--fg-1);
+    margin: 18px 0 14px;
+  }
+  .home-download-sub {
+    font-size: 17px;
+    color: var(--fg-2);
+    line-height: 1.55;
+    margin: 0 auto 28px;
+    max-width: 540px;
+  }
+  .home-download-meta {
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-4);
+  }
+
   .home-notify {
     padding: 56px 0 72px;
     border-top: 1px solid var(--line-1);
@@ -486,10 +650,11 @@ const whatYouGet = [
       grid-template-columns: 1fr;
       gap: 32px;
     }
-    .story-stats {
+    .story-side {
       max-width: 420px;
       margin: 0 auto;
       width: 100%;
+      position: static;
     }
     .wyg-grid { grid-template-columns: 1fr; gap: 16px; }
     .home-notify-inner { flex-direction: column; align-items: stretch; }

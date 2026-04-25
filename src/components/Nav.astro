@@ -6,12 +6,18 @@ const { product } = Astro.props;
 ---
 <nav class="site-nav">
   <a href="/" class="nav-brand">
-    <span class="monogram">CG</span>
+    <span class="monogram" aria-label="G54 — work coordinate origin"><span class="mono-g">G</span><span class="mono-num">54</span></span>
     <span class="wm">
       CNCGuy{product && <>
         <span class="wm-sep">·</span>
         <span class="wm-sub">{product}</span>
       </>}
+    </span>
+    <span class="status-pill" aria-label="Status: ready, beta v0.9">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-text">READY</span>
+      <span class="status-sep" aria-hidden="true">·</span>
+      <span class="status-ver">BETA v0.9</span>
     </span>
   </a>
 
@@ -28,19 +34,36 @@ const { product } = Astro.props;
       <button type="button" data-theme-choice="dark" role="tab" aria-label="Dark theme">Dark</button>
       <button type="button" data-theme-choice="steel" role="tab" aria-label="Steel theme">Steel</button>
     </div>
-    <a href="/edit#download" class="cta-primary nav-cta-btn">Download CNCGuy Edit →</a>
   </div>
 
-  <button class="nav-hamburger" aria-label="Menu">
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
   </button>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <a href="/#products" class="mobile-link">Products</a>
+    <a href="/workbench" class="mobile-link">Workbench</a>
+    <a href="/#story" class="mobile-link">The Story</a>
+    <a href="mailto:hello@cncguy.com" class="mobile-link">Contact</a>
+
+    <div class="mobile-theme">
+      <span class="mobile-theme-label">Theme</span>
+      <div class="theme-switcher" id="mobile-theme-switcher" role="tablist" aria-label="Theme">
+        <button type="button" data-theme-choice="light" role="tab" aria-label="Light theme">Light</button>
+        <button type="button" data-theme-choice="dark" role="tab" aria-label="Dark theme">Dark</button>
+        <button type="button" data-theme-choice="steel" role="tab" aria-label="Steel theme">Steel</button>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <script is:inline>
+  // Theme switcher — shared between desktop nav + mobile menu
   (function () {
     var KEY = 'cncguy-theme';
+    var SWITCHERS = '#theme-switcher button, #mobile-theme-switcher button';
     function active(choice) {
-      document.querySelectorAll('#theme-switcher button').forEach(function (b) {
+      document.querySelectorAll(SWITCHERS).forEach(function (b) {
         b.classList.toggle('active', b.dataset.themeChoice === choice);
         b.setAttribute('aria-selected', b.dataset.themeChoice === choice ? 'true' : 'false');
       });
@@ -57,10 +80,33 @@ const { product } = Astro.props;
       try { localStorage.setItem(KEY, choice); } catch (e) {}
       apply(choice);
     }
-    document.querySelectorAll('#theme-switcher button').forEach(function (b) {
+    document.querySelectorAll(SWITCHERS).forEach(function (b) {
       b.addEventListener('click', function () { set(b.dataset.themeChoice); });
     });
     active(get());
+  })();
+
+  // Mobile hamburger menu — open/close, ESC to close, click-link to close
+  (function () {
+    var ham = document.getElementById('nav-hamburger');
+    var menu = document.getElementById('mobile-menu');
+    if (!ham || !menu) return;
+    function setOpen(open) {
+      ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+      ham.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      ham.classList.toggle('is-open', open);
+      menu.hidden = !open;
+      document.body.classList.toggle('menu-open', open);
+    }
+    ham.addEventListener('click', function () {
+      setOpen(menu.hidden);
+    });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !menu.hidden) setOpen(false);
+    });
   })();
 </script>
 
@@ -84,6 +130,40 @@ const { product } = Astro.props;
     align-items: center;
     gap: 12px;
     text-decoration: none;
+  }
+
+  /* CNC control status bar — small machine-style indicator next to the brand */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 10px;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    background: var(--bg-2);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    line-height: 1;
+    margin-left: 4px;
+  }
+  .status-dot {
+    width: 6px; height: 6px; border-radius: 999px;
+    background: #4ade80;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.7);
+    animation: status-pulse 2.4s var(--ease-std) infinite;
+  }
+  .status-text { color: var(--fg-1); font-weight: 600; }
+  .status-sep { color: var(--line-3); }
+  .status-ver { color: var(--cnc-accent); font-weight: 600; }
+  @keyframes status-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.45; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .status-dot { animation: none; }
   }
   .nav-links {
     display: flex;
@@ -160,7 +240,11 @@ const { product } = Astro.props;
   /* Tighter packed layout when nav is dense */
   @media (max-width: 1180px) {
     .nav-links { gap: 20px; }
-    .nav-cta-btn { display: none; }
+    .status-pill .status-ver { display: none; }
+    .status-pill .status-sep { display: none; }
+  }
+  @media (max-width: 1000px) {
+    .status-pill { display: none; }
   }
   @media (max-width: 900px) {
     .site-nav {
@@ -173,5 +257,73 @@ const { product } = Astro.props;
     .nav-hamburger {
       display: flex;
     }
+  }
+
+  /* ---- Mobile menu drawer (visible only when hamburger is open) ---- */
+  .mobile-menu {
+    position: fixed;
+    top: 60px;
+    left: 0; right: 0;
+    background: var(--bg-2);
+    border-top: 1px solid var(--line-2);
+    border-bottom: 1px solid var(--line-2);
+    padding: 12px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 49;
+    box-shadow: var(--shadow-raise);
+  }
+  /* HTML `hidden` attribute must beat our display:flex */
+  .mobile-menu[hidden] { display: none !important; }
+  .mobile-link {
+    display: block;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--line-1);
+    text-decoration: none;
+    color: var(--fg-1);
+    font-family: var(--font-body);
+    font-size: 17px;
+    transition: color var(--dur-fast) var(--ease-std);
+  }
+  .mobile-link:hover { color: var(--cnc-accent); }
+  .mobile-link:last-of-type { border-bottom: none; }
+  .mobile-theme {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 4px 0;
+    margin-top: 4px;
+    border-top: 1px solid var(--line-1);
+  }
+  .mobile-theme-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+  /* Hamburger animates to an X when open */
+  .nav-hamburger.is-open span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+    width: 20px;
+  }
+  .nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.is-open span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+    width: 20px;
+  }
+  .nav-hamburger span {
+    transition: transform var(--dur-med) var(--ease-out),
+                opacity var(--dur-fast) var(--ease-std),
+                width var(--dur-med) var(--ease-out);
+    transform-origin: center;
+  }
+  /* Lock body scroll when mobile menu is open */
+  body.menu-open { overflow: hidden; }
+  /* Hide the mobile menu container above the breakpoint */
+  @media (min-width: 901px) {
+    .mobile-menu { display: none !important; }
   }
 </style>
