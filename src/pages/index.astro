@@ -198,13 +198,56 @@ const whatYouGet = [
     <section class="home-notify">
       <div class="container home-notify-inner">
         <h3 class="home-notify-title">Get notified when Pro ships.</h3>
-        <form class="home-notify-form" action="/api/subscribe" method="post" onsubmit="event.preventDefault(); alert('Subscribe endpoint not yet wired — your email was not saved. Check back after launch.');">
-          <input type="email" name="email" placeholder="you@shop.com" required />
+        <form class="home-notify-form" id="home-notify-form" action="/api/subscribe" method="post" novalidate>
+          <input type="email" name="email" placeholder="you@shop.com" required aria-label="Email address" />
           <button type="submit" class="btn-secondary">Notify me</button>
         </form>
+        <p class="home-notify-status" id="home-notify-status" role="status" aria-live="polite"></p>
       </div>
       <SectionEnd code="M30" />
     </section>
+
+    <script is:inline>
+      (function () {
+        var form = document.getElementById('home-notify-form');
+        var status = document.getElementById('home-notify-status');
+        if (!form || !status) return;
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var input = form.querySelector('input[name="email"]');
+          var btn = form.querySelector('button[type="submit"]');
+          var email = (input && input.value || '').trim();
+          status.classList.remove('is-error', 'is-ok');
+          if (!email) { status.textContent = 'Please enter an email.'; status.classList.add('is-error'); return; }
+          btn.disabled = true;
+          var originalLabel = btn.textContent;
+          btn.textContent = 'Sending...';
+          try {
+            var res = await fetch('/api/subscribe', {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ email: email }),
+            });
+            var data = await res.json().catch(function () { return {}; });
+            if (res.ok && data && data.ok) {
+              form.style.display = 'none';
+              status.textContent = "Thanks — we'll send one message when Pro ships.";
+              status.classList.add('is-ok');
+            } else {
+              status.textContent = (data && data.error) || 'Could not subscribe right now. Try again in a moment.';
+              status.classList.add('is-error');
+              btn.disabled = false;
+              btn.textContent = originalLabel;
+            }
+          } catch (err) {
+            status.textContent = 'Network error. Try again in a moment.';
+            status.classList.add('is-error');
+            btn.disabled = false;
+            btn.textContent = originalLabel;
+          }
+        });
+      })();
+    </script>
   </main>
 
   <Footer />
@@ -640,6 +683,16 @@ const whatYouGet = [
     border-color: var(--cnc-accent);
     box-shadow: 0 0 0 3px var(--cnc-accent-glow-soft);
   }
+  .home-notify-status {
+    margin: 14px 0 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--fg-3);
+    min-height: 1em;
+  }
+  .home-notify-status.is-ok { color: var(--cnc-accent); }
+  .home-notify-status.is-error { color: #ff6b6b; }
   @media (max-width: 900px) {
     .home-hero { padding: 48px 0 56px; }
     .home-hero-title { font-size: 40px; margin: 16px 0 14px; }

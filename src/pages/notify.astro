@@ -18,13 +18,15 @@ import SectionEnd from '../components/SectionEnd.astro';
 
         <form
           class="notify-form"
+          id="notify-form"
           action="/api/subscribe"
           method="post"
-          onsubmit="event.preventDefault(); alert('Subscribe endpoint not yet wired — your email was not saved. Check back after launch.');"
+          novalidate
         >
           <input type="email" name="email" placeholder="you@shop.com" required aria-label="Email address" />
           <button type="submit" class="cta-primary">Notify me</button>
         </form>
+        <p class="notify-status" id="notify-status" role="status" aria-live="polite"></p>
 
         <p class="notify-fine">
           CNCGuy Studio — shop-floor suite, coming 2026.<br/>
@@ -41,6 +43,48 @@ import SectionEnd from '../components/SectionEnd.astro';
 
   <Footer />
 </Layout>
+
+<script is:inline>
+  (function () {
+    var form = document.getElementById('notify-form');
+    var status = document.getElementById('notify-status');
+    if (!form || !status) return;
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var input = form.querySelector('input[name="email"]');
+      var btn = form.querySelector('button[type="submit"]');
+      var email = (input && input.value || '').trim();
+      status.classList.remove('is-error', 'is-ok');
+      if (!email) { status.textContent = 'Please enter an email.'; status.classList.add('is-error'); return; }
+      btn.disabled = true;
+      var originalLabel = btn.textContent;
+      btn.textContent = 'Sending...';
+      try {
+        var res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email: email }),
+        });
+        var data = await res.json().catch(function () { return {}; });
+        if (res.ok && data && data.ok) {
+          form.style.display = 'none';
+          status.textContent = "Thanks — we'll send one message when the product you're watching ships.";
+          status.classList.add('is-ok');
+        } else {
+          status.textContent = (data && data.error) || 'Could not subscribe right now. Try again in a moment.';
+          status.classList.add('is-error');
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+        }
+      } catch (err) {
+        status.textContent = 'Network error. Try again in a moment.';
+        status.classList.add('is-error');
+        btn.disabled = false;
+        btn.textContent = originalLabel;
+      }
+    });
+  })();
+</script>
 
 <style>
   .notify-hero {
@@ -95,6 +139,17 @@ import SectionEnd from '../components/SectionEnd.astro';
     border-color: var(--cnc-accent);
     box-shadow: 0 0 0 3px var(--cnc-accent-glow-soft);
   }
+  .notify-status {
+    margin: 14px auto 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--fg-3);
+    min-height: 1em;
+    max-width: 520px;
+  }
+  .notify-status.is-ok { color: var(--cnc-accent); }
+  .notify-status.is-error { color: #ff6b6b; }
   .notify-fine {
     font-family: var(--font-mono);
     font-size: 11px;
