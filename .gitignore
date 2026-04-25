@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# local-only archived source assets (kept on disk but not shipped)
+_archive/
+
+# Playwright QA artifacts
+.playwright-mcp/
+qa-*.png
