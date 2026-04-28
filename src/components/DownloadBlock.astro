@@ -11,7 +11,16 @@ import SectionEnd from './SectionEnd.astro';
       <p class="download-sub">
         Installer is about 105 MB. Opens in under a second on a modern laptop.
       </p>
-      <a href="#" class="cta-primary large">Download CNCGuy Edit →</a>
+      {/*
+        The installer URL below is relative to the site root. Cloudflare
+        Pages has a 25 MB per-file limit, so a 105 MB .exe can't live in
+        public/ directly. Recommended: host on GitHub Releases or
+        Cloudflare R2 and replace the href with the public URL. For now
+        this points at /downloads/CNCGuy-Editor-0.6.0-beta.6-Setup.exe;
+        either set up a Pages Function redirect or update the href when
+        the hosting decision is made.
+      */}
+      <a href="/downloads/CNCGuy-Editor-0.6.0-beta.6-Setup.exe" class="cta-primary large" download>Download CNCGuy Edit →</a>
       <div class="download-meta">v0.6.0-beta.6 · Windows 10/11 · ~105 MB</div>
     </div>
 

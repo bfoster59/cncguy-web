@@ -44,13 +44,13 @@ html, body {
 .section-end {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 18px;
   position: absolute;
   right: var(--gutter);
-  bottom: 12px;
+  bottom: 16px;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.22em;
+  font-size: 30px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--fg-4);
   user-select: none;
@@ -58,9 +58,9 @@ html, body {
   z-index: 2;
 }
 .section-end .section-end-rule {
-  width: 32px; height: 1px;
+  width: 64px; height: 2px;
   background: var(--cnc-accent);
-  box-shadow: 0 0 6px var(--cnc-accent-glow);
+  box-shadow: 0 0 8px var(--cnc-accent-glow);
   opacity: 0.6;
 }
 .section-end .section-end-code {
@@ -70,7 +70,7 @@ html, body {
 .section-end-m00 .section-end-rule { opacity: 0.85; }
 .section-end-m00 .section-end-code { text-shadow: 0 0 8px var(--cnc-accent-glow); }
 .section-end-m30 .section-end-rule {
-  width: 64px;
+  width: 128px;
   opacity: 1;
 }
 .section-end-m30 .section-end-code {
