@@ -13,12 +13,6 @@ const { product } = Astro.props;
         <span class="wm-sub">{product}</span>
       </>}
     </span>
-    <span class="status-pill" aria-label="Status: ready, beta v0.9">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span class="status-text">READY</span>
-      <span class="status-sep" aria-hidden="true">·</span>
-      <span class="status-ver">BETA v0.9</span>
-    </span>
   </a>
 
   <div class="nav-links">
@@ -132,39 +126,6 @@ const { product } = Astro.props;
     text-decoration: none;
   }
 
-  /* CNC control status bar — small machine-style indicator next to the brand */
-  .status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 4px 10px;
-    border: 1px solid var(--line-2);
-    border-radius: 999px;
-    background: var(--bg-2);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--fg-3);
-    line-height: 1;
-    margin-left: 4px;
-  }
-  .status-dot {
-    width: 6px; height: 6px; border-radius: 999px;
-    background: #4ade80;
-    box-shadow: 0 0 6px rgba(74, 222, 128, 0.7);
-    animation: status-pulse 2.4s var(--ease-std) infinite;
-  }
-  .status-text { color: var(--fg-1); font-weight: 600; }
-  .status-sep { color: var(--line-3); }
-  .status-ver { color: var(--cnc-accent); font-weight: 600; }
-  @keyframes status-pulse {
-    0%, 100% { opacity: 1; }
-    50%      { opacity: 0.45; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .status-dot { animation: none; }
-  }
   .nav-links {
     display: flex;
     align-items: center;
@@ -240,11 +201,6 @@ const { product } = Astro.props;
   /* Tighter packed layout when nav is dense */
   @media (max-width: 1180px) {
     .nav-links { gap: 20px; }
-    .status-pill .status-ver { display: none; }
-    .status-pill .status-sep { display: none; }
-  }
-  @media (max-width: 1000px) {
-    .status-pill { display: none; }
   }
   @media (max-width: 900px) {
     .site-nav {
